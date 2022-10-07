@@ -1,24 +1,32 @@
 import React from "react";
-import Katie from "../katie.png";
-import Star from "../Star1.png";
 
-function Card() {
+function Card(props) {
+  let badgeText;
+  if (props.openSpots === 0) {
+    badgeText = "SOLD OUT";
+  } else if (props.location === "Online") {
+    badgeText = "ONLINE";
+  }
   return (
     <div className="card">
-      <div className="card--image-container">
-        <img src={Katie} alt="Katie" className="card--image" />
-        <div className="card--availability">SOLD OUT</div>
-      </div>
+      {badgeText && <div className="card--badge">{badgeText}</div>}
+      <img
+        src={`images/${props.coverImg}`}
+        className="card--image"
+        alt="Instructor"
+      />
+
       <div className="card--data">
-        <p>
-          <img className="card--data-star" src={Star} alt="star" />
-          5.0 <span id="number_country"> (6) · USA</span>
-        </p>
-        <p className="card--data-course">Life Lessons With Katie Zaferes</p>
-        <p>
-          <span id="from_price">From $136</span> / person
-        </p>
+        <img className="card--data-star" src="images/Star1.png" alt="star" />
+        {props.stats.rating}{" "}
+        <span id="number_country">
+          ({props.stats.reviewCount}) · {props.location}
+        </span>
       </div>
+      <p className="card--title">{props.title}</p>
+      <p className="card--price">
+        <span id="from_price">From ${props.price}</span> / person
+      </p>
     </div>
   );
 }
